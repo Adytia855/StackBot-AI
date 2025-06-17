@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect } from 'react';
 
 function Sidebar({
   sidebarOpen,
@@ -11,6 +12,26 @@ function Sidebar({
   handleAddConversation,
   handleDeleteConversation
 }) {
+  useEffect(() => {
+    const handleInputFocus = (event) => {
+      const sidebarElement = document.querySelector('.app-sidebar');
+      if (
+        event.target.tagName === 'INPUT' &&
+        window.innerWidth <= 900 &&
+        sidebarElement &&
+        !sidebarElement.contains(event.target)
+      ) {
+        setSidebarOpen(false);
+      }
+    };
+
+    document.addEventListener('focusin', handleInputFocus);
+
+    return () => {
+      document.removeEventListener('focusin', handleInputFocus);
+    };
+  }, [setSidebarOpen]);
+
   return (
     <AnimatePresence>
       {sidebarOpen && (
