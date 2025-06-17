@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect } from 'react';
 
 function Sidebar({
@@ -13,25 +13,8 @@ function Sidebar({
   handleDeleteConversation
 }) {
   useEffect(() => {
-    const handleInputFocus = (event) => {
-      const sidebarElement = document.querySelector('.app-sidebar');
-      if (
-        event.target.tagName === 'INPUT' &&
-        window.innerWidth <= 900 &&
-        sidebarElement &&
-        !sidebarElement.contains(event.target) &&
-        !event.target.closest('.input-group')
-      ) {
-        setSidebarOpen(false);
-      }
-    };
-
-    document.addEventListener('focusin', handleInputFocus);
-
-    return () => {
-      document.removeEventListener('focusin', handleInputFocus);
-    };
-  }, [setSidebarOpen]);
+    // Removed logic for closing sidebar on input focus to avoid issues on mobile devices.
+  }, []);
 
   return (
     <AnimatePresence>
@@ -108,7 +91,7 @@ function Sidebar({
           <div className="sidebar-convs">
             <AnimatePresence>
               {conversations.length === 0 ? (
-                <motion.div style={{color: '#94a3b8', textAlign: 'center', marginTop: 32}} initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
+                <motion.div style={{ color: '#94a3b8', textAlign: 'center', marginTop: 32 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                   No conversations
                 </motion.div>
               ) : (
@@ -117,16 +100,16 @@ function Sidebar({
                     key={conv._id}
                     className={`sidebar-conv-item${selectedConv === conv._id ? ' selected' : ''}`}
                     onClick={() => { setSelectedConv(conv._id); if (window.innerWidth <= 900) setSidebarOpen(false); }}
-                    initial={{opacity: 0, x: -30}}
-                    animate={{opacity: 1, x: 0}}
-                    exit={{opacity: 0, x: -30}}
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -30 }}
                     layout
-                    transition={{duration: 0.18}}
+                    transition={{ duration: 0.18 }}
                   >
-                    <span title={conv.name} style={{flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>{conv.name}</span>
+                    <span title={conv.name} style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{conv.name}</span>
                     <button
                       onClick={e => { e.stopPropagation(); handleDeleteConversation(conv._id); }}
-                      style={{marginLeft: 8, color: '#ef4444', background: 'none', border: 'none', fontSize: 14, cursor: 'pointer'}}
+                      style={{ marginLeft: 8, color: '#ef4444', background: 'none', border: 'none', fontSize: 14, cursor: 'pointer' }}
                       title="Delete conversation"
                     >
                       ×
@@ -137,7 +120,7 @@ function Sidebar({
             </AnimatePresence>
           </div>
           <div className="sidebar-bottom">
-            <div style={{fontSize: '0.93rem'}}>👤 Adytia Griansyah</div>
+            <div style={{ fontSize: '0.93rem' }}>👤 Adytia Griansyah</div>
           </div>
         </motion.aside>
       )}
