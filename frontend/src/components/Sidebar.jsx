@@ -12,9 +12,7 @@ function Sidebar({
   handleAddConversation,
   handleDeleteConversation
 }) {
-  useEffect(() => {
-    // Removed all logic related to input focus or viewport changes to prevent sidebar from closing when keyboard appears.
-  }, []);
+  
 
   return (
     <AnimatePresence>
