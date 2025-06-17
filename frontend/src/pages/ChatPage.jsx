@@ -62,6 +62,7 @@ function ChatPage() {
       if (!res.ok) throw new Error('Failed to add conversation');
       setNewConvName('');
       fetchConversations();
+      setSidebarOpen(false); // Close sidebar after adding conversation
     } catch {
       setError('Failed to add conversation');
     }
