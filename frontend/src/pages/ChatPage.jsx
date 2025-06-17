@@ -15,15 +15,6 @@ function ChatPage() {
 
   const BACKEND = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3001';
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 900 && sidebarOpen) setSidebarOpen(false);
-      if (window.innerWidth > 900 && !sidebarOpen) setSidebarOpen(true);
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [sidebarOpen]);
-
   // Fetch all conversations
   const fetchConversations = async () => {
     try {
@@ -71,6 +62,7 @@ function ChatPage() {
       if (!res.ok) throw new Error('Failed to add conversation');
       setNewConvName('');
       fetchConversations();
+      setSidebarOpen(false); // Close sidebar after adding conversation
     } catch {
       setError('Failed to add conversation');
     }
