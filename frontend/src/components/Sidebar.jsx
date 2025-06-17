@@ -13,7 +13,7 @@ function Sidebar({
   handleDeleteConversation
 }) {
   useEffect(() => {
-    // Removed logic for closing sidebar on input focus to avoid issues on mobile devices.
+    // Removed all logic related to input focus or viewport changes to prevent sidebar from closing when keyboard appears.
   }, []);
 
   return (
@@ -99,7 +99,7 @@ function Sidebar({
                   <motion.div
                     key={conv._id}
                     className={`sidebar-conv-item${selectedConv === conv._id ? ' selected' : ''}`}
-                    onClick={() => { setSelectedConv(conv._id); if (window.innerWidth <= 900) setSidebarOpen(false); }}
+                    onClick={() => setSelectedConv(conv._id)}
                     initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -30 }}
