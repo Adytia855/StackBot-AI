@@ -8,11 +8,7 @@ function ChatList({ messages, handleDeleteMessage }) {
         {messages.length === 0 ? (
           <motion.div style={{color: '#94a3b8', textAlign: 'center', marginTop: 32}} initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}> No messages </motion.div>
         ) : (
-          messages.map((item, idx) => {
-            console.log('--- BOT MSG ---');
-            console.log(item.bot);
-            return (
-
+          messages.map((item, idx) => (
               <motion.div key={item._id || idx} style={{position: 'relative'}} className="chat-anim-wrapper" initial={{opacity: 0, y: 30}} animate={{opacity: 1, y: 0}} exit={{opacity: 0, y: -30}} transition={{duration: 0.22}} layout>
               <motion.div className="chat-bubble user" layout initial={false} animate={{scale: 1}} whileHover={{scale: 1.02}}>
                 <span className="bubble-label-user">You:</span> {item.user}
@@ -21,8 +17,7 @@ function ChatList({ messages, handleDeleteMessage }) {
                 <span className="bubble-label-bot">StackBot:</span> <ReactMarkdown>{item.bot}</ReactMarkdown>
               </motion.div>
             </motion.div>
-            )
-})
+          ))
         )}
       </AnimatePresence>
     </div>

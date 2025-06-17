@@ -20,7 +20,6 @@ exports.chat = async (req, res) => {
     const data = await response.json();
     const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || '[No response]';
 
-    // Save conversation to MongoDB
     await Message.create({ user: userMessage, bot: reply });
 
     res.json({ reply });

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import ChatPage from './pages/ChatPage';
 
 function App() {
-  // Default dark mode: true jika localStorage belum ada
   const [dark, setDark] = useState(() => {
     const stored = localStorage.getItem('darkmode');
     return stored === null ? true : stored === 'true';

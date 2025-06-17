@@ -1,6 +1,3 @@
-// =========================
-// ChatPage.jsx (refactor)
-// =========================
 import { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
 import ChatList from '../components/ChatList';
@@ -18,7 +15,6 @@ function ChatPage() {
 
   const BACKEND = import.meta.env.VITE_BACKEND_URL ;
 
-  /** Fetch daftar percakapan */
   const fetchConversations = async () => {
     try {
       const res = await fetch(`${BACKEND}/api/conversations`);
@@ -31,7 +27,6 @@ function ChatPage() {
     }
   };
 
-  /** Fetch pesan sebuah percakapan */
   const fetchMessages = async (convId) => {
     if (!convId) return setMessages([]);
     try {
@@ -44,12 +39,10 @@ function ChatPage() {
     }
   };
 
-  /* Initial load */
   useEffect(() => {
     fetchConversations();
   }, []);
 
-  /* Load pesan ketika conversation berganti */
   useEffect(() => {
     fetchMessages(selectedConv);
   }, [selectedConv]);
@@ -62,13 +55,12 @@ function ChatPage() {
     throw new Error(`Server returned non‑JSON: ${text.slice(0, 100)}…`);
   };
 
-  /** Buat percakapan baru otomatis ketika user kirim pesan pertama */
   const createNewConversation = async (firstMessage) => {
-    const shortMsg = firstMessage.replace(/\n/g, ' ').slice(0, 20); // ambil 20 karakter pertama, hapus newline
+    const shortMsg = firstMessage.replace(/\n/g, ' ').slice(0, 20); 
     const now = new Date();
-    const tanggal = now.toLocaleDateString('id-ID');            // 17/06/2025
-    const jam     = String(now.getHours()).padStart(2, '0');    // 15
-    const menit   = String(now.getMinutes()).padStart(2, '0');  // 42
+    const tanggal = now.toLocaleDateString('id-ID');           
+    const jam     = String(now.getHours()).padStart(2, '0');    
+    const menit   = String(now.getMinutes()).padStart(2, '0');  
     const waktu   = `${tanggal} ${jam}:${menit}`;
     const autoName = `${shortMsg} - ${waktu}`.trim();
     const res = await fetch(`${BACKEND}/api/conversations`, {
@@ -86,7 +78,6 @@ function ChatPage() {
     return conv._id;
   };
 
-  /** Tambah percakapan via sidebar */
   const handleAddConversation = async () => {
     if (!newConvName.trim()) return;
     setError('');
@@ -106,7 +97,6 @@ function ChatPage() {
     }
   };
 
-  /** Hapus percakapan */
   const handleDeleteConversation = async (id) => {
     setError('');
     try {
@@ -120,7 +110,6 @@ function ChatPage() {
     }
   };
 
-  /** Kirim pesan */
   const handleSend = async () => {
     if (!message.trim()) return;
     setLoading(true);
@@ -135,7 +124,7 @@ function ChatPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message })
       });
-      if (!res.ok) throw new Error('Gagal mengirim pesan');
+      if (!res.ok) throw new Error('Failed to send message');
 
       setMessage('');
       fetchMessages(convId);
@@ -147,7 +136,6 @@ function ChatPage() {
     setLoading(false);
   };
 
-  /** Hapus pesan */
   const handleDeleteMessage = async (msgId) => {
     if (!selectedConv) return;
     setError('');
@@ -174,12 +162,11 @@ function ChatPage() {
         handleDeleteConversation={handleDeleteConversation}
       />
 
-      {/** Tombol hamburger global */}
       {!sidebarOpen && (
         <button
           onClick={() => setSidebarOpen(true)}
           style={{ position: 'absolute', left: 12, top: 18, zIndex: 10, background: '#EBB423', color: '#fff', border: 'none', borderRadius: 8, width: 40, height: 40, fontSize: 24, boxShadow: '0 2px 8px rgba(235,180,35,0.08)' }}
-          title="Buka sidebar"
+          title="Open sidebar"
         >
           ☰
         </button>
