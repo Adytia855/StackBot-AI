@@ -19,7 +19,8 @@ function Sidebar({
         event.target.tagName === 'INPUT' &&
         window.innerWidth <= 900 &&
         sidebarElement &&
-        !sidebarElement.contains(event.target)
+        !sidebarElement.contains(event.target) &&
+        !event.target.closest('.input-group')
       ) {
         setSidebarOpen(false);
       }
