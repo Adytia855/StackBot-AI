@@ -7,8 +7,22 @@ function Sidebar({ sidebarOpen, setSidebarOpen, conversations, selectedConv, set
     <AnimatePresence>
       {sidebarOpen && (
         <motion.aside className="app-sidebar" initial={{ x: -320, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: -320, opacity: 0 }} transition={{ type: 'spring', stiffness: 300, damping: 30 }} 
-        style={{ display: 'flex', position: 'fixed', zIndex: 100, left: 0, top: 0, height: '100vh', minWidth: 270, maxWidth: 320 }} >
-          <button onClick={() => setSidebarOpen(false)} style={{position: 'absolute', right: -18, top: 24, zIndex: 30, background: '#EBB423', color: '#fff', border: 'none', borderRadius: '50%', width: 36, height: 36, fontSize: 20, boxShadow: '0 2px 8px rgba(235,180,35,0.10)'}} title="Close sidebar" >
+        style={{ display: 'flex', position: 'fixed', zIndex: 100, left: 0, top: 0, height: '100vh', minWidth: 270, maxWidth: 320, /* Added for button positioning context */ }} >
+          {/* The close button is now positioned relative to this sidebar */}
+          <button onClick={() => setSidebarOpen(false)} style={{
+            position: 'absolute', 
+            right: -18, // Small offset from the left edge of the sidebar
+            top: '50%', 
+            transform: 'translateY(-50%)', 
+            zIndex: 30, // Ensure it's above other sidebar content if needed
+            background: '#EBB423', 
+            color: '#fff', 
+            border: 'none', 
+            borderRadius: '50%', 
+            width: 36, 
+            height: 36, 
+            fontSize: 20, 
+            boxShadow: '0 2px 8px rgba(235,180,35,0.10)'}} title="Close sidebar" >
             <span style={{display: 'inline-block', transform: 'rotate(180deg)'}}>&#10094;</span>
           </button>
           <div className="sidebar-header">

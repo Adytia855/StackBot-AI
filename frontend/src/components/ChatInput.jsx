@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 
 function ChatInput({ message, setMessage, handleSend, loading }) {
   return (
-    <form className="main-input-area" style={{ maxWidth: 800, margin: '0 auto' }}
+    <form className="main-input-area"
       onSubmit={(e) => {
         e.preventDefault();
         handleSend();
