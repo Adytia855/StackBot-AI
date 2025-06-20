@@ -1,13 +1,25 @@
 import { useEffect, useState } from 'react';
 import ChatPage from './pages/ChatPage';
 
+/**
+ * Main application component.
+ * It manages the dark mode theme toggle and renders the main `ChatPage`.
+ * The dark mode preference is persisted in localStorage.
+ *
+ * @returns {JSX.Element} The main application structure.
+ */
 function App() {
+  /** @state {boolean} dark - Indicates if dark mode is currently active. Initializes from localStorage or defaults to true. */
   const [dark, setDark] = useState(() => {
     const stored = localStorage.getItem('darkmode');
     return stored === null ? true : stored === 'true';
   });
+  /** @state {number} btnScale - Controls the scale of the dark mode toggle button for click/hover animations. */
   const [btnScale, setBtnScale] = useState(1);
 
+  /**
+   * Effect to apply/remove 'dark' class to the body and update localStorage when `dark` state changes.
+   */
   useEffect(() => {
     if (dark) {
       document.body.classList.add('dark');
@@ -17,7 +29,9 @@ function App() {
     localStorage.setItem('darkmode', dark);
   }, [dark]);
 
-  // Reset scale after click
+  /**
+   * Effect to reset the dark mode toggle button's scale after a click animation.
+   */
   useEffect(() => {
     if (btnScale !== 1) {
       const t = setTimeout(() => setBtnScale(1), 120);

@@ -148,13 +148,12 @@ body {
 }
 
 .main-input-area {
-   /* min-width: 0; */ /* Generally not needed for a flex container like this */
-   max-width: 800px; /* Moved from inline style */
-   margin-left: auto; /* Moved from inline style */
-   margin-right: auto; /* Moved from inline style */
+   max-width: 800px; 
+   margin-left: auto; 
+   margin-right: auto; 
    padding: 16px 0 32px 0;
    display: flex;
-   align-items: center; /* Vertically align input and button */
+   align-items: center; 
    gap: 12px
 }
 .main-input {
@@ -182,7 +181,7 @@ body {
   font-size: 1rem;
   cursor: pointer;
   transition: background 0.2s;
-  line-height: 1.5; /* Added for consistent height calculation */
+  line-height: 1.5;
   white-space: nowrap;
 }
 .main-send-btn:disabled {
@@ -194,27 +193,21 @@ body {
   background: #f59e42;
 }
 
-/* Responsive adjustments for smaller screens */
 @media (max-width: 480px) {
   .main-input-area {
-    padding: 12px 0 24px 0; /* Reduced vertical padding */
-    gap: 8px; /* Reduced gap */
-    /* Add horizontal padding if needed within this component, 
-       but ChatPage's <main> already has horizontal padding.
-       If ChatInput is used elsewhere without a padded parent, you might add:
-       padding-left: 16px; 
-       padding-right: 16px; 
-    */
+    padding: 12px 0 24px 0; 
+    gap: 8px; 
+
   }
 
   .main-input {
-    font-size: 0.9rem; /* Slightly smaller font */
-    padding: 12px 14px; /* Slightly reduced padding */
+    font-size: 0.9rem; 
+    padding: 12px 14px;
   }
 
   .main-send-btn {
-    font-size: 0.9rem; /* Slightly smaller font */
-    padding: 12px 16px; /* Slightly reduced padding */
+    font-size: 0.9rem; 
+    padding: 12px 16px;
   }
 }
 

@@ -1,20 +1,35 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect } from 'react';
 
+/**
+ * Sidebar component for navigating and managing conversations.
+ * Displays a list of conversations, allows adding new ones, and deleting existing ones.
+ * It also includes a toggle button to open/close the sidebar.
+ *
+ * @param {object} props - The component props.
+ * @param {boolean} props.sidebarOpen - State indicating if the sidebar is currently open.
+ * @param {function} props.setSidebarOpen - Function to set the sidebar open state.
+ * @param {Array<object>} props.conversations - List of conversation objects to display. Each object should have an `_id` and `name`.
+ * @param {string | null} props.selectedConv - The ID of the currently selected conversation.
+ * @param {function} props.setSelectedConv - Function to set the selected conversation ID.
+ * @param {string} props.newConvName - The current value of the input field for a new conversation name.
+ * @param {function} props.setNewConvName - Function to set the new conversation name input value.
+ * @param {function} props.handleAddConversation - Function to call when adding a new conversation.
+ * @param {function} props.handleDeleteConversation - Function to call when deleting a conversation. Takes the conversation ID as an argument.
+ * @returns {JSX.Element} The Sidebar component.
+ */
 function Sidebar({ sidebarOpen, setSidebarOpen, conversations, selectedConv, setSelectedConv, newConvName, setNewConvName, handleAddConversation, handleDeleteConversation }) {
 
   return (
     <AnimatePresence>
       {sidebarOpen && (
         <motion.aside className="app-sidebar" initial={{ x: -320, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: -320, opacity: 0 }} transition={{ type: 'spring', stiffness: 300, damping: 30 }} 
-        style={{ display: 'flex', position: 'fixed', zIndex: 100, left: 0, top: 0, height: '100vh', minWidth: 270, maxWidth: 320, /* Added for button positioning context */ }} >
-          {/* The close button is now positioned relative to this sidebar */}
+        style={{ display: 'flex', position: 'fixed', zIndex: 100, left: 0, top: 0, height: '100vh', minWidth: 270, maxWidth: 320, }} >
           <button onClick={() => setSidebarOpen(false)} style={{
             position: 'absolute', 
-            right: -18, // Small offset from the left edge of the sidebar
+            right: -18, 
             top: '50%', 
             transform: 'translateY(-50%)', 
-            zIndex: 30, // Ensure it's above other sidebar content if needed
+            zIndex: 30, 
             background: '#EBB423', 
             color: '#fff', 
             border: 'none', 
